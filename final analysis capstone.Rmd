@@ -1,0 +1,410 @@
+---
+title: "final analysis"
+author: "Shifaa"
+date: '2019-03-31'
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+library(readxl)
+cancerdata <- read_excel("breastcancerdata.xls")
+View(cancerdata)
+```
+
+
+```{r}
+summary(cancerdata)
+dim(cancerdata)
+```
+
+```{r}
+sum(is.na(cancerdata))
+#no missing values
+```
+
+
+```{r}
+hist(cancerdata$radius_mean, xlab = "Radius Mean", main = "Radius Mean")
+hist(cancerdata$texture_mean, xlab = "Texture Mean", main = "Texture Mean")
+hist(cancerdata$perimeter_mean, xlab = "Perimeter Mean", main = "Perimeter Mean")
+hist(cancerdata$area_mean, xlab = "Area Mean", main = "Area Mean")
+hist(cancerdata$smoothness_mean, xlab = "Smoothness Mean", main = "Smoothness Mean")
+hist(cancerdata$area_mean, xlab = "Compactness Mean", main = "Compactness Mean")
+hist(cancerdata$concavity_mean, xlab = "Concavity Mean", main = "Concavity Mean")
+hist(cancerdata$`concave points_mean`, xlab = "Concavity Points Mean", main = "Concavity Points Mean")
+hist(cancerdata$symmetry_mean, xlab = "Symmetry Mean", main = "Symmetry Mean")
+hist(cancerdata$fractal_dimension_mean, xlab = "Fractal Dimension Mean", main = "Fractal Dimension Mean")
+hist(cancerdata$radius_se, xlab = "Radius Standard Error", main = "Radius Standard Error")
+hist(cancerdata$texture_se, xlab = "Texture Standard Error", main = "Texture Standard Error")
+hist(cancerdata$perimeter_se, xlab = "Perimeter Standard Error", main = "Perimeter Standard Error")
+hist(cancerdata$area_se, xlab = "Area Standard Error", main = "Area Standard Error")
+hist(cancerdata$smoothness_se, xlab = "Smoothness Standard Error", main ="Smoothness Standard Error")
+hist(cancerdata$compactness_se, xlab = "Compactness Standard Error", main = "Compactness Standard Error")
+hist(cancerdata$concavity_se, xlab = "Concavity Standard Error", main = "Concavity Standard Error")
+hist(cancerdata$`concave points_se`, xlab = "Concave Points Standard Error", main = "Concavity Points Standard Error")
+hist(cancerdata$symmetry_se, xlab = "Symmetry Standard Error", main = "Symmetry Standard Error")
+hist(cancerdata$fractal_dimension_se, xlab = "Fractal Dimension Standard Error", main = "Fractal Dimension Standard Error")
+hist(cancerdata$radius_worst, xlab = "Radius Worst", main = "Radius Worst")
+hist(cancerdata$area_worst, xlab = "Area Worst", main = "Area Worst")
+hist(cancerdata$smoothness_worst, xlab = "Smoothness Worst", main = "Smoothness Worst")
+hist(cancerdata$compactness_worst, xlab = "Compactness Worst", main = "Compactness Worst")
+hist(cancerdata$concavity_worst, xlab = "Concavity Worst", main = "Concavity Worst")
+hist(cancerdata$concavity_worst, xlab = "Concavity Worst", main = "Concavity Worst")
+hist(cancerdata$concavity_worst, xlab = "Concavity Worst", main = "Concavity Worst")
+hist(cancerdata$`concave points_worst`, xlab = "Concave Points Worst", main = "Concavity Points Worst")
+hist(cancerdata$symmetry_worst, xlab = "Symmetry Worst", main = "Symmetry Worst")
+hist(cancerdata$fractal_dimension_worst, xlab = "Fractal Dimension Worst", main = "Fractal Dimension Worst")
+
+```
+
+
+```{r}
+imbalancecheck <- prop.table(table(cancerdata$diagnosis))
+
+paste(round(imbalancecheck*100), "%", sep = "")
+
+barplot(imbalancecheck)
+```
+
+```{r}
+#install.packages("ggplot2")
+#install.packages("magrittr")
+library("ggplot2")
+library("magrittr")
+library("ggpubr")
+
+
+ggdensity(cancerdata$radius_mean, main = "Density plot of Radius Mean")
+ggdensity(cancerdata$texture_mean, main = "Density plot of Texture Mean")
+ggdensity(cancerdata$perimeter_mean, main = "Density plot of Perimeter Mean")
+ggdensity(cancerdata$area_mean, main = "Density plot of Area Mean")
+ggdensity(cancerdata$smoothness_mean, main = "Density plot of Smoothness Mean")
+ggdensity(cancerdata$compactness_mean, main = "Density plot of Compactness Mean")
+ggdensity(cancerdata$concavity_mean, main = "Density plot of Concavity Mean")
+ggdensity(cancerdata$`concave points_mean`, main = "Density plot of Concave Points Mean")
+ggdensity(cancerdata$symmetry_mean, main = "Density plot of Symmetry Mean")
+ggdensity(cancerdata$fractal_dimension_mean, main = "Density plot of Fractal Dimension Mean")
+ggdensity(cancerdata$radius_se, main = "Density plot of Radius Standard Error")
+ggdensity(cancerdata$texture_se, main = "Density plot of Texture Standard Error")
+ggdensity(cancerdata$perimeter_se, main = "Density plot of Perimeter Standard Error")
+ggdensity(cancerdata$area_se, main = "Density plot of Area Standard Error")
+ggdensity(cancerdata$smoothness_se, main = "Density plot of Smoothness Standard Error")
+ggdensity(cancerdata$compactness_se, main = "Density plot of Compactness Standard Error")
+ggdensity(cancerdata$concavity_se, main = "Density plot of Concavity Standard Error")
+ggdensity(cancerdata$`concave points_se`, main = "Density plot of Concave Points Standard Error")
+ggdensity(cancerdata$symmetry_se, main = "Density plot of Symmetry Standard Error")
+ggdensity(cancerdata$fractal_dimension_se, main = "Density plot of Fractal Dimension Standard Error")
+ggdensity(cancerdata$radius_worst, main = "Density plot of Radius Worst")
+ggdensity(cancerdata$texture_worst, main = "Density plot of Texture Worst")
+ggdensity(cancerdata$perimeter_worst, main = "Density plot of Perimeter Worst")
+ggdensity(cancerdata$area_worst, main = "Density plot of Area Worst")
+ggdensity(cancerdata$smoothness_worst, main = "Density plot of Smoothness Worst")
+ggdensity(cancerdata$compactness_worst, main = "Density plot of Compactness Worst")
+ggdensity(cancerdata$concavity_worst, main = "Density plot of Concavity Worst")
+ggdensity(cancerdata$`concave points_worst`, main = "Density plot of Concave Points Worst")
+ggdensity(cancerdata$symmetry_worst, main = "Density plot of Symmetry Worst")
+ggdensity(cancerdata$fractal_dimension_worst, main = "Density plot of Fractal Dimension Worst")
+```
+
+```{r}
+shapiro.test(cancerdata$radius_mean)
+shapiro.test(cancerdata$texture_mean)
+shapiro.test(cancerdata$perimeter_mean)
+shapiro.test(cancerdata$area_mean)
+shapiro.test(cancerdata$smoothness_mean)
+shapiro.test(cancerdata$compactness_mean)
+shapiro.test(cancerdata$concavity_mean)
+shapiro.test(cancerdata$`concave points_mean`)
+shapiro.test(cancerdata$symmetry_mean)
+shapiro.test(cancerdata$fractal_dimension_mean)
+shapiro.test(cancerdata$radius_se)
+shapiro.test(cancerdata$texture_se)
+shapiro.test(cancerdata$perimeter_se)
+shapiro.test(cancerdata$area_se)
+shapiro.test(cancerdata$smoothness_se)
+shapiro.test(cancerdata$compactness_se)
+shapiro.test(cancerdata$concavity_se)
+shapiro.test(cancerdata$`concave points_worst`)
+shapiro.test(cancerdata$symmetry_se)
+shapiro.test(cancerdata$fractal_dimension_se)
+shapiro.test(cancerdata$radius_worst)
+shapiro.test(cancerdata$texture_worst)
+shapiro.test(cancerdata$perimeter_worst)
+shapiro.test(cancerdata$area_worst)
+shapiro.test(cancerdata$smoothness_worst)
+shapiro.test(cancerdata$compactness_worst)
+shapiro.test(cancerdata$concavity_worst)
+shapiro.test(cancerdata$`concave points_worst`)
+shapiro.test(cancerdata$symmetry_worst)
+shapiro.test(cancerdata$fractal_dimension_worst)
+
+# if p-value > 0.05, it implies distribution is not significantly different from normal
+# in this case, most of the distributions are not norma
+```
+
+```{r}
+imbalancecheck <- prop.table(table(cancerdata$diagnosis))
+
+paste(round(imbalancecheck*100), "%", sep = "")
+
+
+#data is imbalanced (62.9% benign and 37.25% malignant)
+```
+
+
+
+
+
+#Correlation Analysis & Removing highly correlated variables
+```{r}
+#install.packages("corrplot")
+library("dplyr")
+corrmat <- cor(cancerdata[,3:ncol(cancerdata)])
+corrplot::corrplot(corrmat, order = "hclust", addrect = 8, tl.col = "black", col = c("grey", "red"), bg = "pink")
+#corrplot shows highly correlated variables which shuld be removed.It is
+#essential for highly correlated variables to be removed for analysis. 
+
+```
+
+
+```{r}
+#install.packages("lattice")
+#install.packages("ggplot2")
+library("lattice")
+#install.packages("caret")
+library("ggplot2")
+library("caret")
+library("lattice")
+highcor <-  findCorrelation(corrmat, cutoff = 0.85)
+length(highcor)
+data.filtered <- cancerdata[, -highcor]
+
+g <- cbind(data.filtered, cancerdata[,2])
+head(g)
+length(g)
+
+```
+
+#PCA 
+```{r}
+
+
+library("caret")
+nd <- g
+pca_model <- preProcess(g[,-20], method = c("pca"))
+pca_model
+
+head(pca_model)
+
+```
+
+
+#Predict
+```{r}
+p <- predict(pca_model, nd[,-20])
+nd <- cbind(p, diagnosis = nd[,20])
+nd$diagnosis <- as.factor(nd$diagnosis)
+head(nd)
+```
+
+#Splitting dataset
+```{r}
+dataindex <- createDataPartition(nd$diagnosis, p=0.8, list = FALSE)
+train <- nd[dataindex, -2]
+test <- nd[-dataindex, -2]
+cntrl <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
+head(train)
+```
+
+#KMEANS
+```{r}
+km <- kmeans(cancerdata[,-2], centers = 10, iter.max = 10)
+
+km
+```
+
+```{r}
+dfkm <- data.frame(predicted = km$cluster, actual = cancerdata$diagnosis)
+tb <- table(prediction = dfkm$predicted, actual = dfkm$actual)
+assocplot(tb)
+```
+
+
+
+#10 fold cross validation with 3 repeats
+```{r}
+cntrl <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
+seed <- 7
+
+```
+
+plot(varImp(km))
+
+#Training Models
+```{r}
+#Linear Discriminant Analysis
+set.seed(seed)
+lda.train <- train(diagnosis~., data= train, method="lda", preProc=c("center", "scale"), trControl=cntrl)
+
+# Logistic Regression
+set.seed(seed)
+lr <- train(diagnosis~., data= train, method="glm", trControl=cntrl)
+
+#Naive Bayes
+set.seed(seed)
+nb <- train(diagnosis~., data= train, method="nb", trControl=cntrl)
+
+#C5.0
+set.seed(seed)
+C5.0 <- train(diagnosis~., data= train, method="C5.0", trControl=cntrl)
+
+#Random forest
+set.seed(seed)
+rf <- train(diagnosis~., data= train, method="rf", trControl=cntrl)
+
+#Bagged Cart
+set.seed(seed)
+treebag <- train(diagnosis~., data= train, method="treebag", trControl=cntrl)
+
+#Stochastic Gradient Boosting (Generalized Boosted Modeling)
+set.seed(seed)
+gbm <- train(diagnosis~., data= train, method="gbm", trControl=cntrl, verbose=FALSE)
+
+#KNN
+set.seed(seed)
+knn <- train(diagnosis~., data= train, method="knn",preProc=c("center", "scale"), trControl=cntrl)
+
+#support vector machine
+set.seed(seed)
+svm <- train(diagnosis ~., data = train, method = "svmRadial",
+                      preProcess = c("scale", "center"), 
+                      trace = FALSE, 
+                      trControl = cntrl)
+```
+
+
+
+
+#Predictions and Confusion Matrix for each model
+```{r}
+y <- predict(lda.train, test, type = "raw")
+cm_lda <- confusionMatrix(y, test$diagnosis)
+
+g <- predict(lr, test, type = "raw")
+cm_lr <-confusionMatrix(g, test$diagnosis)
+
+h <- predict(nb, test, type = "raw")
+cm_nb <- confusionMatrix(h, test$diagnosis)
+
+j <- predict(C5.0, test, type = "raw")
+cm_c5 <- confusionMatrix(j, test$diagnosis)
+
+k <- predict(rf, test, type = "raw")
+cm_rf <- confusionMatrix(k, test$diagnosis)
+
+l <- predict(treebag, test, type = "raw")
+cm_tb <- confusionMatrix(l, test$diagnosis)
+
+m <- predict(gbm, test, type = "raw" )
+cm_gbm <- confusionMatrix(m, test$diagnosis)
+
+n <- predict(knn, test, type = "raw")
+cm_knn <- confusionMatrix(n, test$diagnosis)
+
+o <- predict(svm, test, type="raw")
+cm_svm <- confusionMatrix(o, test$diagnosis)
+```
+```{r}
+cm_nb$byClass
+```
+
+#Summary of Results of Models
+```{r}
+rslts <- resamples(list(lda = lda.train, logistic = lr, nb = nb, c50 = C5.0, rforest = rf, bagging = treebag, gbm = gbm, knn = knn, svm = svm))
+summary(rslts)
+
+```
+
+```{r}
+```
+
+
+#gbm, bagging, rforest, and c50 perform better
+```{r}
+bwplot(rslts)
+```
+
+```{r}
+#plot(C5.0)
+ C5.0$finalModel
+```
+
+
+```{r}
+dotplot(rslts)
+```
+
+```{r}
+splom(rslts)
+```
+
+```{r}
+#look at spread of estimated accuracies. boxes are ordered from highest to lowest mean accuracy
+compar <- list(x=list(relation="free"), y=list(relation="free"))
+bwplot(rslts, scales=compar)
+```
+
+```{r}
+#to compare means and look at overlap of spreads of algorithms
+dotplot(rslts, scales = compar)
+```
+```{r Statistical Significance}
+diff <- diff(rslts)
+summary(diff)
+```
+
+```{r}
+
+model_compare <- data.frame(Model = c("LDA", "Logistic", "Naive Bayes", "C5.0", "Random Forest", "Tree Bag", "gbm", "KNN", "SVM"), Accuracy = c(cm_lda$overall, cm_lr$overall, cm_nb$overall, cm_c5$overall, cm_rf$overall, cm_tb$overall, cm_gbm$overall, cm_knn$overall, cm_svm$overall))
+
+ggplot(aes(x= Model, y=Accuracy), data = model_compare) + geom_bar(stat = "identity", fill = 'dark grey') 
+
+#Random Forest appears to be most accurate
+```
+
+```{r}
+model_compare
+```
+
+```{r}
+ggplot(data = data.frame(cm_tb$table)) + geom_tile(aes(x=Reference, y=Prediction, fill= Freq)) + ggtitle("Prediction Accuracy for Tree Bagging") + xlab("Actual") +ylab("Predicted")
+
+# this plot will compare the pedictions against the actual diagnosis in the cross validaton set. The intersection for the predicted class and actual class is very high which indicates that the model is very accurate.
+```
+
+
+```{r}
+ggplot(data = data.frame(cm_gbm$table)) + geom_tile(aes(x=Reference, y=Prediction, fill= Freq)) + ggtitle("Prediction Accuracy for Stochastic Gradient Boosting") + xlab("Actual") +ylab("Predicted")
+```
+
+
+```{r}
+tree <- rpart::rpart(diagnosis ~., data= train, method= 'class')
+tree
+```
+
+```{r}
+rpart.plot::rpart.plot(tree)
+```
+
+```{r}
+tree$variable.importance
+```
+
+
+
+
+
